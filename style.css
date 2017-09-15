@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:700');
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+body {
+  display: flex;
+  height: 100vh;
+  background: #f8f8f8;
+  font-family: 'Open Sans', sans-serif;
+  color: #404040;
+}
+
+.heading {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  font-size: 2.5em;
+}
+
+.strict {
+  height: 30px;
+  display: flex;
+  position: absolute;
+  top: 75%;
+  left: 70%;
+  font-size: 1.5em;
+  font-family: 'Lato', sans-serif;
+  line-height: 30px;
+  align-items: center;
+}
+
+button {
+  height: 40px;
+  width: 40px;
+  background-color: #fcec4d;
+  border: none;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 50%;
+  margin-left: 5px;
+  font-size: 0.5em;
+}
+
+.container {
+  background: #f8f8f8;
+  height: 400px;
+  width: 400px;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.panel {
+  height: 155px;
+  width: 155px;
+  border-radius: 50%;
+  background: #f8f8f8;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-48%);
+  font-size: 1.7em;
+  line-height: 155px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.button {
+  height: 190px;
+  width: 190px;
+  cursor: pointer;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+#green {
+  background: #7bc043;
+  border-radius: 100% 0 0 0;
+}
+
+#red {
+  background: #ee4035;
+  border-radius: 0 100% 0 0;
+}
+
+#yellow {
+  background: #fdf17f;
+  border-radius: 0 0 0 100%;
+}
+
+#blue {
+  background: #0392cf;
+  border-radius: 0 0 100% 0;
+}
