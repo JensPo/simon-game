@@ -3,6 +3,8 @@ const buttons = document.querySelectorAll('.button');
 const strictMode = document.querySelector('button');
 const controls = document.querySelector('.gameControl');
 const colors = {0:'green', 1:'red', 2:'yellow', 3:'blue'};
+const colorHighlights = {'green':'#8CD538', 'red':'#f3462c', 'yellow':'#fdf04f', 'blue':'#0ab3fb'};
+const trueColors = {'green':'#629935', 'red':'#be332a', 'yellow':'#e2d445', 'blue':'#0274a5'}
 let playerResponse;
 let gameSequence;
 let turnCount;
@@ -16,42 +18,72 @@ function startGame() {
   gameSequence = [];
   playerResponse = [];
   //generate new game sequence for this turn.
-  generateGameSequence(turnCount, gameSequence);
+  gameSequence = generateGameSequence(turnCount);
+  presentGameSequence();
   //gather players button sequence.
   buttons.forEach((button) => {
     button.addEventListener('click', turnClick);
   });
-  console.log(gameSequence);
+}
+
+//generate a random sequence of button values depending on
+function generateGameSequence(count) {
+  let newArr = [];
+  for (var i=0; i<count; i++) {
+    newArr.push(colors[Math.floor(Math.random()*4)]);
+  }
+  console.log(newArr);               //<------- remove
+  return newArr;
+}
+
+//presents the colors in the gameSequence on the game board.
+function presentGameSequence() {
+  gameSequence.forEach((color, i) => {
+    setTimeout(presentColor.bind(null, color), 1000*i);
+  })
+}
+
+//highlights the color button on the game board.
+function presentColor(color) {
+  let colorButton = document.getElementById(color);
+  colorButton.style.background = colorHighlights[color]; //<------- same consiquent colors need to have a break between ----- !!!
+  setTimeout(() => {colorButton.style.background = trueColors[color]}, 1000);
+}
+
+function turnClick(button) {
+  let targetValue = button.target.id.toString();
+  (evaluateState(targetValue)) ? rightQuess(targetValue) : wrongQuess(strict);
 }
 
 //evaluate current game state.
-function evaluateState(value) {                               // <--------!!! add else statement
-  if (gameSequence[playerResponse.length] !== value) return false;
+function evaluateState(value) {
+  if (gameSequence[playerResponse.length] !== value) {
+    return false;
+  } else {
+    return true;
+  }      // <--------!!! add else statement
 }
 
-function turnClick(button) {                                     // <--------!!! clean console.log('false')
-  let targetValue = button.target.id.toString();
-  (evaluateState(targetValue) == false)? console.log('false') : playerResponse.push(targetValue);
-  console.log(playerResponse);
+function rightQuess(value) {
+  playerResponse.push(value)
+  console.log(playerResponse); //<-------------remove
+  if (gameSequence.length === playerResponse.length) console.log('you win');
 }
 
-function generateGameSequence(count, sequenceArray) {
-  for (var i=0; i<count; i++) {
-    var randNum = Math.floor(Math.random()*4);
-    sequenceArray.push(colors[randNum]);
-  }
+function wrongQuess(strict) {
+  (strict) ? console.log('game over') : console.log('false'); //<------- !!!
 }
-
-
 
 
 //FUNCTION INITIATION:
 strictMode.addEventListener("click", function(){
     if(this.innerText === 'OFF') {
       this.innerText = 'ON';
+      strict = true;
       this.style.background = '#ec2a1d';
     } else {
       this.innerText = 'OFF';
+      strict = false;
       this.style.background = '#6faf3b';
     }
 });

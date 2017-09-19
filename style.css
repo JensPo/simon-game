@@ -82,21 +82,21 @@ button {
 }
 
 #green {
-  background: #7bc043;
+  background: #629935;
   border-radius: 100% 0 0 0;
 }
 
 #red {
-  background: #ee4035;
+  background: #be332a;
   border-radius: 0 100% 0 0;
 }
 
 #yellow {
-  background: #fdf17f;
+  background: #e2d445;
   border-radius: 0 0 0 100%;
 }
 
 #blue {
-  background: #0392cf;
+  background: #0274a5;
   border-radius: 0 0 100% 0;
 }
