@@ -15,46 +15,46 @@ let strict = false;
 
 function startGame() {
   turnCount = 4;
+
+
+
+
   gameSequence = [];
   playerResponse = [];
   //generate new game sequence for this turn.
   gameSequence = generateGameSequence(turnCount);
-  presentGameSequence();
+  console.log(gameSequence); //<-- to be removed
+  presentGameSequence(gameSequence);
   //gather players button sequence.
   buttons.forEach((button) => {
     button.addEventListener('click', turnClick);
   });
+
 }
 
-//generate a random sequence of button values depending on
+//generate a random sequence of button values depending on turnCount.
 function generateGameSequence(count) {
-  let newArr = [];
-  for (var i=0; i<count; i++) {
-    newArr.push(colors[Math.floor(Math.random()*4)]);
-  }
-  console.log(newArr);               //<------- remove
-  return newArr;
+  return Array.from({length: count}, () => colors[Math.floor(Math.random()*4)]);
 }
 
 //presents the colors in the gameSequence on the game board.
-function presentGameSequence() {
-  gameSequence.forEach((color, i) => {
+function presentGameSequence(array) {
+  array.forEach((color, i) => {
     setTimeout(presentColor.bind(null, color), 1000*i);
   })
 }
-
-//highlights the color button on the game board.
+//blinks the color button                                  *NEEDS AN UPDATE!!!*
 function presentColor(color) {
   let colorButton = document.getElementById(color);
-  colorButton.style.background = colorHighlights[color]; //<------- same consiquent colors need to have a break between ----- !!!
+  colorButton.style.background = colorHighlights[color];
   setTimeout(() => {colorButton.style.background = trueColors[color]}, 1000);
 }
+
 
 function turnClick(button) {
   let targetValue = button.target.id.toString();
   (evaluateState(targetValue)) ? rightQuess(targetValue) : wrongQuess(strict);
 }
-
 //evaluate current game state.
 function evaluateState(value) {
   if (gameSequence[playerResponse.length] !== value) {
@@ -63,13 +63,11 @@ function evaluateState(value) {
     return true;
   }      // <--------!!! add else statement
 }
-
 function rightQuess(value) {
   playerResponse.push(value)
   console.log(playerResponse); //<-------------remove
   if (gameSequence.length === playerResponse.length) console.log('you win');
 }
-
 function wrongQuess(strict) {
   (strict) ? console.log('game over') : console.log('false'); //<------- !!!
 }
