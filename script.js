@@ -14,12 +14,12 @@ let strict = false;
 //FUNCTION DECLRATIONS:
 
 function startGame() {
-  turnCount = 4;
+  turnCount = 1;
 
 
 
 
-  gameSequence = [];
+  /*gameSequence = [];
   playerResponse = [];
   //generate new game sequence for this turn.
   gameSequence = generateGameSequence(turnCount);
@@ -28,28 +28,38 @@ function startGame() {
   //gather players button sequence.
   buttons.forEach((button) => {
     button.addEventListener('click', turnClick);
-  });
+  });*/
+  while (turnCount<7) {
+    setTimeout(test.bind(null, turnCount), 750*turnCount);
+    turnCount+=1;
+  }
 
 }
+
+//TESTFUNC
+function test(count) {
+  console.log('turn: '+count);
+}
+//TESTFUNC
+
+
 
 //generate a random sequence of button values depending on turnCount.
 function generateGameSequence(count) {
   return Array.from({length: count}, () => colors[Math.floor(Math.random()*4)]);
 }
-
 //presents the colors in the gameSequence on the game board.
 function presentGameSequence(array) {
   array.forEach((color, i) => {
     setTimeout(presentColor.bind(null, color), 1000*i);
   })
 }
-//blinks the color button                                  *NEEDS AN UPDATE!!!*
+//blinks the color button
 function presentColor(color) {
   let colorButton = document.getElementById(color);
   colorButton.style.background = colorHighlights[color];
-  setTimeout(() => {colorButton.style.background = trueColors[color]}, 1000);
+  setTimeout(() => {colorButton.style.background = trueColors[color]}, 750);
 }
-
 
 function turnClick(button) {
   let targetValue = button.target.id.toString();
